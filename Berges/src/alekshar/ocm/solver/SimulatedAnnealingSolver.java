@@ -14,7 +14,7 @@ public class SimulatedAnnealingSolver implements ISolver{
 	private Solution bestSol;
 	private int bestDelay;
 
-	private Random rand;
+	private Random rand = new Random();
 
 	private int bankLength;
 	
@@ -33,7 +33,6 @@ public class SimulatedAnnealingSolver implements ISolver{
 		double deltaT = Math.max(currDelay / nbIterations, 1);
 		int temperature = currDelay;
 
-		rand = new Random(0);
 		process : for(int i=0; i<nbIterations; i++){
 			if(temperature == 0){
 				break;

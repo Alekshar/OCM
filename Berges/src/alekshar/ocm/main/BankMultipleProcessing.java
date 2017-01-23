@@ -8,7 +8,7 @@ import alekshar.ocm.model.Solution;
 import alekshar.ocm.solver.GreedySolver;
 import alekshar.ocm.solver.SimulatedAnnealingSolver;
 
-public class BankProcessor {
+public class BankMultipleProcessing {
 	static String[] probs = {
 			"i004_007A",
 			"i004_007B",
@@ -17,22 +17,18 @@ public class BankProcessor {
 			"i020_100",
 			"i050_500"
 	};
-	static int[] nbits = {
-		10,
-		100,
-		1000
-	};
+	static int nbit = 100;
 
 	public static void main(String[] args) throws NumberFormatException, IOException {
 		FileWriter writer = new FileWriter("output.csv");
-		writer.write("problem,nbIterations,bestDelay,calculationTime\n");
+		writer.write("problem,#,bestDelay,calculationTime\n");
 		for(String prob : probs){
 			Problem problem = ProblemManager.load("data/"+prob);
-			for(int nbit : nbits){
+			for(int i=1; i<=10; i++){
 				long time = System.currentTimeMillis();
 				Solution solution = new SimulatedAnnealingSolver(nbit).solve(problem);
 				time = System.currentTimeMillis() - time;
-				writer.write(prob+","+nbit+","+solution.calculateDelay()+","+time+"\n");
+				writer.write(prob+","+i+","+solution.calculateDelay()+","+time+"\n");
 				writer.flush();
 			}
 		}
